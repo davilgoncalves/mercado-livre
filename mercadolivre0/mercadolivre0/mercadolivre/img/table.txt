@@ -1,0 +1,104 @@
+<!-- 4. SEÇÃO DE CATEGORIAS (TABELA) -->
+<section class="secao-categorias">
+    
+    <div class="topo-categorias">
+        <h2>Categorias</h2>
+        <a href="#">Mostrar todas as categorias</a>
+    </div>
+
+    <!-- Início da Tabela -->
+    <table class="tabela-categorias">
+        
+        <!-- LINHA 1 (<tr> significa Table Row) -->
+        <tr>
+            <!-- Coluna 1 (<td> significa Table Data) -->
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Carro" class="foto-categoria" alt="Carros">
+                </div>
+                <span class="nome-categoria">Carros, Motos e Outros</span>
+            </td>
+            
+            <!-- Coluna 2 -->
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Celular" class="foto-categoria" alt="Celulares">
+                </div>
+                <span class="nome-categoria">Celulares e Telefones</span>
+            </td>
+            
+            <!-- Coluna 3 -->
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Eletro" class="foto-categoria" alt="Eletrodomésticos">
+                </div>
+                <span class="nome-categoria">Eletrodomésticos</span>
+            </td>
+            
+            <!-- Coluna 4 -->
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Ferramentas" class="foto-categoria" alt="Ferramentas">
+                </div>
+                <span class="nome-categoria">Ferramentas</span>
+            </td>
+        </tr>
+
+        <!-- LINHA 2 -->
+        <tr>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Pneu" class="foto-categoria" alt="Acessórios">
+                </div>
+                <span class="nome-categoria">Acessórios para Veículos</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Roupa" class="foto-categoria" alt="Moda">
+                </div>
+                <span class="nome-categoria">Calçados, Roupas e Bolsas</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Peso" class="foto-categoria" alt="Esportes">
+                </div>
+                <span class="nome-categoria">Esportes e Fitness</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Perfume" class="foto-categoria" alt="Beleza">
+                </div>
+                <span class="nome-categoria">Beleza e Cuidado Pessoal</span>
+            </td>
+        </tr>
+
+        <!-- LINHA 3 -->
+        <tr>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Sofa" class="foto-categoria" alt="Casa">
+                </div>
+                <span class="nome-categoria">Casa, Móveis e Decoração</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Notebook" class="foto-categoria" alt="Informática">
+                </div>
+                <span class="nome-categoria">Informática</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Casa" class="foto-categoria" alt="Imóveis">
+                </div>
+                <span class="nome-categoria">Imóveis</span>
+            </td>
+            <td class="celula-categoria">
+                <div class="fundo-imagem-categoria">
+                    <img src="https://via.placeholder.com/50x50.png?text=Fone" class="foto-categoria" alt="Eletrônicos">
+                </div>
+                <span class="nome-categoria">Eletrônicos, Áudio e Vídeo</span>
+            </td>
+        </tr>
+
+    </table>
+</section>

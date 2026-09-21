@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mercado Moto - Sua loja online</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="cabecalho">
+
+        <div class="topo">
+
+            <a href="#" class="logo">
+                Moto<span>Moto</span>
+            </a>
+
+            <div class="barra-pesquisa">
+                <input
+                    type="text"
+                    id="campo-pesquisa"
+                    placeholder="Buscar produtos, marcas e muito mais..."
+                >
+
+                <button onclick="pesquisar()">
+                    🔍
+                </button>
+            </div>
+
+            <div class="usuario">
+                <span class="icone-usuario">👤</span>
+
+                <div>
+                    <small>Olá, visitante</small>
+                    <strong>Minha conta</strong>
+                </div>
+            </div>
+
+            <div class="carrinho">
+                🛒
+                <span id="contador-carrinho">0</span>
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="#categorias">Categorias</a>
+            <a href="#ofertas">Ofertas</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#beneficios">Benefícios</a>
+            <a href="#avaliacoes">Avaliações</a>
+            <a href="#contato">Contato</a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= BANNER ================= -->
+
+    <section class="banner">
+
+        <img
+            id="imagem-banner"
+            src="img/banner1.jpg"
+            alt="Ofertas para motociclistas"
+        >
+
+        <div class="banner-conteudo">
+
+            <span class="tag-banner">
+                OFERTAS ESPECIAIS
+            </span>
+
+            <h1>
+                Tudo para sua moto<br>
+                em um só lugar
+            </h1>
+
+            <p>
+                Encontre peças, acessórios, equipamentos e muito mais.
+            </p>
+
+            <button class="btn-principal" onclick="irParaProdutos()">
+                Comprar agora
+            </button>
+
+        </div>
+
+        <button class="seta esquerda" onclick="voltarImagem()">
+            ❮
+        </button>
+
+        <button class="seta direita" onclick="avancarImagem()">
+            ❯
+        </button>
+
+        <div class="indicadores">
+
+            <span class="indicador ativo"></span>
+            <span class="indicador"></span>
+            <span class="indicador"></span>
+            <span class="indicador"></span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= BENEFÍCIOS RÁPIDOS ================= -->
+
+    <section class="beneficios-topo">
+
+        <div class="beneficio-topo">
+            <div class="icone">🚚</div>
+
+            <div>
+                <strong>Entrega rápida</strong>
+                <p>Receba seus produtos com segurança.</p>
+            </div>
+        </div>
+
+
+        <div class="beneficio-topo">
+            <div class="icone">🔒</div>
+
+            <div>
+                <strong>Compra segura</strong>
+                <p>Seus dados protegidos.</p>
+            </div>
+        </div>
+
+
+        <div class="beneficio-topo">
+            <div class="icone">💳</div>
+
+            <div>
+                <strong>Pagamento facilitado</strong>
+                <p>Pix, cartão e várias opções.</p>
+            </div>
+        </div>
+
+
+        <div class="beneficio-topo">
+            <div class="icone">↩️</div>
+
+            <div>
+                <strong>Compra garantida</strong>
+                <p>Suporte quando você precisar.</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIAS ================= -->
+
+    <section class="secao" id="categorias">
+
+        <div class="titulo-secao">
+
+            <div>
+                <span>EXPLORE</span>
+                <h2>Compre por categoria</h2>
+            </div>
+
+            <a href="#">Ver todas →</a>
+
+        </div>
+
+
+        <div class="categorias">
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="carro.jpeg" alt="Motos">
+                </div>
+                <h3>Motos</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="celular.jpeg" alt="Capacetes">
+                </div>
+                <h3>Capacetes</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="maquina.jpeg" alt="Equipamentos">
+                </div>
+                <h3>Equipamentos</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="ferramentas.jpeg" alt="Ferramentas">
+                </div>
+                <h3>Ferramentas</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="pneu.jpeg" alt="Peças">
+                </div>
+                <h3>Peças</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="vestido.jpeg" alt="Roupas">
+                </div>
+                <h3>Roupas</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="peso-academia.jpeg" alt="Segurança">
+                </div>
+                <h3>Segurança</h3>
+                <p>Ver produtos</p>
+            </div>
+
+
+            <div class="categoria">
+                <div class="imagem-categoria">
+                    <img src="fone.jpeg" alt="Eletrônicos">
+                </div>
+                <h3>Eletrônicos</h3>
+                <p>Ver produtos</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= OFERTAS ================= -->
+
+    <section class="secao ofertas" id="ofertas">
+
+        <div class="titulo-secao">
+
+            <div>
+                <span>APROVEITE</span>
+                <h2>Ofertas do dia</h2>
+            </div>
+
+            <div class="contador">
+                🔥 Ofertas por tempo limitado
+            </div>
+
+        </div>
+
+
+        <div class="produtos" id="produtos">
+
+
+            <article class="produto">
+
+                <div class="etiqueta">
+                    -20%
+                </div>
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="img/banner1.jpg" alt="Produto">
+
+                <div class="produto-info">
+
+                    <div class="estrelas">
+                        ★★★★★
+                        <span>(128)</span>
+                    </div>
+
+                    <h3>
+                        Capacete Premium para Motociclista
+                    </h3>
+
+                    <p class="preco-antigo">
+                        R$ 599,90
+                    </p>
+
+                    <strong class="preco">
+                        R$ 479,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        em até 12x sem juros
+                    </p>
+
+                    <button onclick="adicionarCarrinho()">
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto">
+
+                <div class="etiqueta">
+                    -15%
+                </div>
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="img/banner2.jpg" alt="Produto">
+
+                <div class="produto-info">
+
+                    <div class="estrelas">
+                        ★★★★★
+                        <span>(86)</span>
+                    </div>
+
+                    <h3>
+                        Kit Completo de Ferramentas
+                    </h3>
+
+                    <p class="preco-antigo">
+                        R$ 399,90
+                    </p>
+
+                    <strong class="preco">
+                        R$ 339,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        em até 10x sem juros
+                    </p>
+
+                    <button onclick="adicionarCarrinho()">
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto">
+
+                <div class="etiqueta">
+                    -25%
+                </div>
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="img/banner3.jpg" alt="Produto">
+
+                <div class="produto-info">
+
+                    <div class="estrelas">
+                        ★★★★★
+                        <span>(214)</span>
+                    </div>
+
+                    <h3>
+                        Luvas Esportivas para Moto
+                    </h3>
+
+                    <p class="preco-antigo">
+                        R$ 199,90
+                    </p>
+
+                    <strong class="preco">
+                        R$ 149,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        em até 6x sem juros
+                    </p>
+
+                    <button onclick="adicionarCarrinho()">
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto">
+
+                <div class="etiqueta">
+                    -18%
+                </div>
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="img/banner4.webp" alt="Produto">
+
+                <div class="produto-info">
+
+                    <div class="estrelas">
+                        ★★★★★
+                        <span>(73)</span>
+                    </div>
+
+                    <h3>
+                        Acessórios Premium para Moto
+                    </h3>
+
+                    <p class="preco-antigo">
+                        R$ 289,90
+                    </p>
+
+                    <strong class="preco">
+                        R$ 239,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        em até 8x sem juros
+                    </p>
+
+                    <button onclick="adicionarCarrinho()">
+                        Adicionar ao carrinho
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DESTAQUE ================= -->
+
+    <section class="destaque">
+
+        <div>
+
+            <span>PARA QUEM AMA MOTOS</span>
+
+            <h2>
+                Equipamentos para<br>
+                acompanhar sua aventura
+            </h2>
+
+            <p>
+                Encontre produtos selecionados para deixar
+                suas viagens mais confortáveis e seguras.
+            </p>
+
+            <button class="btn-principal">
+                Explorar produtos
+            </button>
+
+        </div>
+
+        <div class="destaque-icone">
+            🏍️
+        </div>
+
+    </section>
+
+
+    <!-- ================= MAIS PRODUTOS ================= -->
+
+    <section class="secao">
+
+        <div class="titulo-secao">
+
+            <div>
+                <span>CONFIRA TAMBÉM</span>
+                <h2>Produtos populares</h2>
+            </div>
+
+            <a href="#">Ver todos →</a>
+
+        </div>
+
+
+        <div class="produtos">
+
+
+            <article class="produto simples">
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="pneu.jpeg" alt="Pneu para moto">
+
+                <div class="produto-info">
+
+                    <h3>
+                        Pneu esportivo para motocicleta
+                    </h3>
+
+                    <strong class="preco">
+                        R$ 329,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        10x de R$ 32,99
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto simples">
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="notebook.jpeg" alt="GPS para moto">
+
+                <div class="produto-info">
+
+                    <h3>
+                        GPS e suporte inteligente
+                    </h3>
+
+                    <strong class="preco">
+                        R$ 449,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        12x sem juros
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto simples">
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="fone.jpeg" alt="Sistema de som">
+
+                <div class="produto-info">
+
+                    <h3>
+                        Intercomunicador Bluetooth
+                    </h3>
+
+                    <strong class="preco">
+                        R$ 259,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        8x sem juros
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="produto simples">
+
+                <div class="favorito">
+                    ♡
+                </div>
+
+                <img src="ferramentas.jpeg" alt="Ferramentas">
+
+                <div class="produto-info">
+
+                    <h3>
+                        Kit profissional para oficina
+                    </h3>
+
+                    <strong class="preco">
+                        R$ 189,90
+                    </strong>
+
+                    <p class="parcelamento">
+                        6x sem juros
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= AVALIAÇÕES ================= -->
+
+    <section class="avaliacoes" id="avaliacoes">
+
+        <div class="titulo-avaliacoes">
+
+            <span>QUEM COMPRA, RECOMENDA</span>
+
+            <h2>
+                O que nossos clientes dizem
+            </h2>
+
+        </div>
+
+
+        <div class="depoimentos">
+
+
+            <article class="depoimento">
+
+                <div class="estrelas">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Gostei muito da experiência. O produto chegou
+                    rápido e exatamente como estava anunciado."
+                </p>
+
+                <strong>
+                    Carlos Henrique
+                </strong>
+
+                <small>
+                    Cliente verificado
+                </small>
+
+            </article>
+
+
+            <article class="depoimento">
+
+                <div class="estrelas">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Encontrei tudo que precisava para minha moto
+                    em um só lugar. Recomendo!"
+                </p>
+
+                <strong>
+                    Rafael Souza
+                </strong>
+
+                <small>
+                    Cliente verificado
+                </small>
+
+            </article>
+
+
+            <article class="depoimento">
+
+                <div class="estrelas">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Site fácil de usar, pagamento tranquilo e
+                    entrega dentro do prazo."
+                </p>
+
+                <strong>
+                    Lucas Oliveira
+                </strong>
+
+                <small>
+                    Cliente verificado
+                </small>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= BENEFÍCIOS ================= -->
+
+    <section class="secao" id="beneficios">
+
+        <div class="titulo-secao">
+
+            <div>
+                <span>POR QUE COMPRAR CONOSCO?</span>
+                <h2>Uma experiência feita para você</h2>
+            </div>
+
+        </div>
+
+
+        <div class="beneficios">
+
+
+            <article class="beneficio">
+
+                <div>🚚</div>
+
+                <h3>Entrega rápida</h3>
+
+                <p>
+                    Acompanhe seu pedido e receba
+                    tudo com segurança.
+                </p>
+
+            </article>
+
+
+            <article class="beneficio">
+
+                <div>💳</div>
+
+                <h3>Pagamento seguro</h3>
+
+                <p>
+                    Escolha entre Pix, cartão ou
+                    outras formas de pagamento.
+                </p>
+
+            </article>
+
+
+            <article class="beneficio">
+
+                <div>🛡️</div>
+
+                <h3>Compra protegida</h3>
+
+                <p>
+                    Conte com suporte durante toda
+                    sua experiência de compra.
+                </p>
+
+            </article>
+
+
+            <article class="beneficio">
+
+                <div>💬</div>
+
+                <h3>Atendimento</h3>
+
+                <p>
+                    Nossa equipe está pronta para
+                    ajudar quando precisar.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= NEWSLETTER ================= -->
+
+    <section class="newsletter">
+
+        <div>
+
+            <span>FIQUE POR DENTRO</span>
+
+            <h2>
+                Receba ofertas e novidades
+            </h2>
+
+            <p>
+                Cadastre seu e-mail e não perca nenhuma oportunidade.
+            </p>
+
+        </div>
+
+
+        <div class="form-newsletter">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Digite seu melhor e-mail"
+            >
+
+            <button onclick="cadastrarEmail()">
+                Cadastrar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="rodape" id="contato">
+
+        <div class="rodape-conteudo">
+
+
+            <div class="rodape-coluna principal">
+
+                <a href="#" class="logo rodape-logo">
+                    Mercado<span>Moto</span>
+                </a>
+
+                <p>
+                    Tudo para sua moto em um só lugar.
+                    Produtos, acessórios e equipamentos
+                    para quem vive sobre duas rodas.
+                </p>
+
+                <div class="redes">
+
+                    <a href="#">f</a>
+                    <a href="#">◎</a>
+                    <a href="#">▶</a>
+                    <a href="#">♪</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="rodape-coluna">
+
+                <h3>Institucional</h3>
+
+                <a href="#">Sobre nós</a>
+                <a href="#">Como comprar</a>
+                <a href="#">Termos e condições</a>
+                <a href="#">Política de privacidade</a>
+
+            </div>
+
+
+            <div class="rodape-coluna">
+
+                <h3>Atendimento</h3>
+
+                <a href="#">Central de ajuda</a>
+                <a href="#">Meus pedidos</a>
+                <a href="#">Trocas e devoluções</a>
+                <a href="#">Fale conosco</a>
+
+            </div>
+
+
+            <div class="rodape-coluna">
+
+                <h3>Pagamento</h3>
+
+                <p>Pagamento seguro através de:</p>
+
+                <div class="pagamentos">
+                    <span>PIX</span>
+                    <span>VISA</span>
+                    <span>MASTER</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="rodape-final">
+
+            <p>
+                © 2026 MercadoMoto. Todos os direitos reservados.
+            </p>
+
+            <p>
+                Este é um projeto acadêmico/demonstrativo.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
