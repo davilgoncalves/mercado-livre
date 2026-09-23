@@ -1,590 +1,647 @@
 /* =========================================================
-   MERCADO MOTO — JAVASCRIPT
-========================================================= */
+   MERCADO MOTO - SCRIPT PRINCIPAL
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =====================================================
+       1. CARROSSEL PRINCIPAL DO BANNER
+       ===================================================== */
+
+    const imagensBanner = [
+        "img/banner1.jpg",
+        "img/banner2.jpg",
+        "img/banner3.jpg",
+        "img/banner4.webp"
+    ];
+
+    let indiceBanner = 0;
+    let intervaloBanner;
+
+    const imagemBanner = document.getElementById("imagem-banner");
+    const indicadores = document.querySelectorAll(".indicador");
 
 
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
+    function atualizarBanner() {
 
-let indiceBanner = 0;
-let quantidadeCarrinho = 0;
+        if (!imagemBanner) return;
 
-const imagensBanner = [
-    "img/banner1.jpg",
-    "img/banner2.jpg",
-    "img/banner3.jpg",
-    "img/banner4.webp"
-];
+        imagemBanner.classList.add("troca-banner");
 
+        setTimeout(() => {
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+            imagemBanner.src = imagensBanner[indiceBanner];
 
-const imagemBanner = document.getElementById("imagem-banner");
-const indicadores = document.querySelectorAll(".indicador");
-const contadorCarrinho = document.getElementById("contador-carrinho");
-const campoPesquisa = document.getElementById("campo-pesquisa");
+            imagemBanner.onload = () => {
+                imagemBanner.classList.remove("troca-banner");
+            };
+
+        }, 180);
 
 
-/* =========================================================
-   CARROSSEL DO BANNER
-========================================================= */
+        indicadores.forEach((indicador, index) => {
 
-function atualizarBanner() {
+            indicador.classList.toggle(
+                "ativo",
+                index === indiceBanner
+            );
 
-    if (!imagemBanner) return;
+        });
+    }
 
-    imagemBanner.style.opacity = "0";
 
-    setTimeout(() => {
+    window.avancarImagem = function () {
 
-        imagemBanner.src = imagensBanner[indiceBanner];
+        indiceBanner++;
 
-        imagemBanner.style.opacity = "1";
+        if (indiceBanner >= imagensBanner.length) {
+            indiceBanner = 0;
+        }
 
-    }, 180);
+        atualizarBanner();
+        reiniciarBanner();
+    };
+
+
+    window.voltarImagem = function () {
+
+        indiceBanner--;
+
+        if (indiceBanner < 0) {
+            indiceBanner = imagensBanner.length - 1;
+        }
+
+        atualizarBanner();
+        reiniciarBanner();
+    };
+
+
+    function iniciarBanner() {
+
+        intervaloBanner = setInterval(() => {
+
+            indiceBanner++;
+
+            if (indiceBanner >= imagensBanner.length) {
+                indiceBanner = 0;
+            }
+
+            atualizarBanner();
+
+        }, 5000);
+
+    }
+
+
+    function reiniciarBanner() {
+
+        clearInterval(intervaloBanner);
+
+        iniciarBanner();
+
+    }
+
+
+    /* =====================================================
+       2. INDICADORES DO BANNER
+       ===================================================== */
 
     indicadores.forEach((indicador, index) => {
 
-        indicador.classList.toggle(
-            "ativo",
-            index === indiceBanner
-        );
+        indicador.addEventListener("click", () => {
+
+            indiceBanner = index;
+
+            atualizarBanner();
+
+            reiniciarBanner();
+
+        });
 
     });
-}
 
-
-function avancarImagem() {
-
-    indiceBanner++;
-
-    if (indiceBanner >= imagensBanner.length) {
-        indiceBanner = 0;
-    }
 
     atualizarBanner();
-}
+    iniciarBanner();
 
 
-function voltarImagem() {
+    /* =====================================================
+       3. CARROSSEL DOS PRODUTOS
+       ===================================================== */
 
-    indiceBanner--;
+    const imagensCards = {
 
-    if (indiceBanner < 0) {
-        indiceBanner = imagensBanner.length - 1;
-    }
+        1: [
+            "img/banner1.jpg",
+            "img/capacete1.jpg",
+            "img/capacete2.jpg"
+        ],
 
-    atualizarBanner();
-}
+        2: [
+            "img/banner2.jpg",
+            "img/ferramentas1.jpg",
+            "img/ferramentas2.jpg"
+        ],
 
+        3: [
+            "img/banner3.jpg",
+            "img/luvas1.jpg",
+            "img/luvas2.jpg"
+        ],
 
-/* Troca automática */
+        4: [
+            "img/banner4.webp",
+            "img/acessorio1.jpg",
+            "img/acessorio2.jpg"
+        ]
 
-let intervaloBanner = setInterval(avancarImagem, 5000);
-
-
-/* Pausar quando o mouse estiver sobre o banner */
-
-const banner = document.querySelector(".banner");
-
-if (banner) {
-
-    banner.addEventListener("mouseenter", () => {
-        clearInterval(intervaloBanner);
-    });
-
-    banner.addEventListener("mouseleave", () => {
-
-        intervaloBanner = setInterval(
-            avancarImagem,
-            5000
-        );
-
-    });
-
-}
+    };
 
 
-/* =========================================================
-   PESQUISA
-========================================================= */
+    const cardAtual = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0
+    };
 
-function pesquisar() {
 
-    if (!campoPesquisa) return;
+    function trocarImagemCard(numero, direcao) {
 
-    const termo = campoPesquisa.value
-        .trim()
-        .toLowerCase();
+        const imagem = document.getElementById(`foto-card-${numero}`);
 
-    if (!termo) {
+        if (!imagem) return;
 
-        campoPesquisa.focus();
+        const imagens = imagensCards[numero];
 
-        campoPesquisa.style.boxShadow =
-            "0 0 0 3px rgba(220, 50, 50, .25)";
+        if (!imagens || imagens.length === 0) return;
+
+
+        cardAtual[numero] += direcao;
+
+
+        if (cardAtual[numero] >= imagens.length) {
+            cardAtual[numero] = 0;
+        }
+
+
+        if (cardAtual[numero] < 0) {
+            cardAtual[numero] = imagens.length - 1;
+        }
+
+
+        imagem.style.opacity = "0";
+
 
         setTimeout(() => {
-            campoPesquisa.style.boxShadow = "";
-        }, 700);
 
-        return;
+            imagem.src = imagens[cardAtual[numero]];
+
+            imagem.style.opacity = "1";
+
+        }, 180);
+
     }
 
-    const produtos = document.querySelectorAll(".produto");
 
-    let encontrou = false;
+    window.avancarCard = function (numero) {
 
-    produtos.forEach(produto => {
+        trocarImagemCard(numero, 1);
 
-        const nome = produto
-            .querySelector("h3")
-            ?.textContent
-            .toLowerCase() || "";
+    };
 
-        if (nome.includes(termo)) {
 
-            encontrou = true;
+    window.voltarCard = function (numero) {
 
-            produto.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
+        trocarImagemCard(numero, -1);
+
+    };
+
+
+    /* =====================================================
+       4. CRIAÇÃO DAS SETAS DOS CARDS
+       ===================================================== */
+
+    function prepararCarrosseisCards() {
+
+        for (let numero = 1; numero <= 4; numero++) {
+
+            const imagem = document.getElementById(`foto-card-${numero}`);
+
+            if (!imagem) continue;
+
+
+            const container = imagem.parentElement;
+
+            if (!container) continue;
+
+
+            const area = document.createElement("div");
+
+            area.className = "area-carrossel";
+
+
+            imagem.parentNode.insertBefore(area, imagem);
+
+            area.appendChild(imagem);
+
+
+            const setaEsquerda = document.createElement("button");
+
+            setaEsquerda.className = "seta-card esquerda-card";
+
+            setaEsquerda.innerHTML = "‹";
+
+            setaEsquerda.setAttribute(
+                "aria-label",
+                "Imagem anterior"
+            );
+
+
+            const setaDireita = document.createElement("button");
+
+            setaDireita.className = "seta-card direita-card";
+
+            setaDireita.innerHTML = "›";
+
+            setaDireita.setAttribute(
+                "aria-label",
+                "Próxima imagem"
+            );
+
+
+            setaEsquerda.addEventListener("click", (event) => {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                voltarCard(numero);
+
             });
 
-            produto.style.transition = "box-shadow .3s ease";
 
-            produto.style.boxShadow =
-                "0 0 0 4px rgba(255, 214, 0, .65)";
+            setaDireita.addEventListener("click", (event) => {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                avancarCard(numero);
+
+            });
+
+
+            area.appendChild(setaEsquerda);
+            area.appendChild(setaDireita);
+
+        }
+
+    }
+
+
+    prepararCarrosseisCards();
+
+
+    /* =====================================================
+       5. BUSCA
+       ===================================================== */
+
+    const campoBusca = document.querySelector(
+        'input[type="search"], input[placeholder*="Buscar"], input[placeholder*="buscar"]'
+    );
+
+
+    if (campoBusca) {
+
+        campoBusca.addEventListener("keydown", (event) => {
+
+            if (event.key === "Enter") {
+
+                const termo = campoBusca.value.trim();
+
+                if (termo === "") {
+
+                    mostrarNotificacao(
+                        "Digite algo para pesquisar."
+                    );
+
+                    return;
+
+                }
+
+
+                mostrarNotificacao(
+                    `Pesquisando por: ${termo}`
+                );
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       6. BOTÃO VER PRODUTOS
+       ===================================================== */
+
+    window.irParaProdutos = function () {
+
+        const produtos = document.querySelector(
+            ".ofertas, #produtos, .produtos"
+        );
+
+
+        if (produtos) {
+
+            produtos.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+    };
+
+
+    /* =====================================================
+       7. CARRINHO
+       ===================================================== */
+
+    let quantidadeCarrinho = 0;
+
+
+    window.adicionarCarrinho = function () {
+
+        quantidadeCarrinho++;
+
+        atualizarCarrinho();
+
+        mostrarNotificacao(
+            "Produto adicionado ao carrinho!"
+        );
+
+    };
+
+
+    function atualizarCarrinho() {
+
+        const contador = document.querySelector(
+            ".contador-carrinho"
+        );
+
+
+        if (contador) {
+
+            contador.textContent = quantidadeCarrinho;
+
+            contador.style.transform = "scale(1.3)";
+
 
             setTimeout(() => {
 
-                produto.style.boxShadow = "";
+                contador.style.transform = "scale(1)";
 
-            }, 1800);
-        }
-
-    });
-
-    if (!encontrou) {
-
-        alert(
-            `Não encontramos produtos para "${campoPesquisa.value}".`
-        );
-
-    }
-
-}
-
-
-/* Pesquisar pressionando Enter */
-
-if (campoPesquisa) {
-
-    campoPesquisa.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-                pesquisar();
-            }
+            }, 200);
 
         }
-    );
-
-}
-
-
-/* =========================================================
-   IR PARA PRODUTOS
-========================================================= */
-
-function irParaProdutos() {
-
-    const produtos = document.getElementById("produtos");
-
-    if (!produtos) return;
-
-    produtos.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-
-}
-
-
-/* =========================================================
-   CARRINHO
-========================================================= */
-
-function adicionarCarrinho() {
-
-    quantidadeCarrinho++;
-
-    if (contadorCarrinho) {
-
-        contadorCarrinho.textContent =
-            quantidadeCarrinho;
-
-        contadorCarrinho.animate(
-            [
-                {
-                    transform: "scale(1)"
-                },
-                {
-                    transform: "scale(1.35)"
-                },
-                {
-                    transform: "scale(1)"
-                }
-            ],
-            {
-                duration: 350
-            }
-        );
 
     }
 
-    mostrarNotificacao(
-        "Produto adicionado ao carrinho!"
-    );
 
-}
+    /* =====================================================
+       8. NOTIFICAÇÃO
+       ===================================================== */
 
+    function mostrarNotificacao(mensagem) {
 
-/* =========================================================
-   NOTIFICAÇÃO
-========================================================= */
-
-function mostrarNotificacao(mensagem) {
-
-    const antiga =
-        document.querySelector(".notificacao-site");
-
-    if (antiga) {
-        antiga.remove();
-    }
-
-    const notificacao =
-        document.createElement("div");
-
-    notificacao.className =
-        "notificacao-site";
-
-    notificacao.innerHTML = `
-        <span>✓</span>
-        <p>${mensagem}</p>
-    `;
-
-    Object.assign(
-        notificacao.style,
-        {
-            position: "fixed",
-            right: "25px",
-            bottom: "25px",
-            zIndex: "9999",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            padding: "14px 18px",
-            background: "#111",
-            color: "#fff",
-            borderRadius: "12px",
-            boxShadow: "0 15px 40px rgba(0,0,0,.2)",
-            fontSize: "13px",
-            fontWeight: "600",
-            transform: "translateY(20px)",
-            opacity: "0",
-            transition: ".3s ease"
-        }
-    );
-
-    notificacao.querySelector("span").style.cssText = `
-        width:25px;
-        height:25px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:#ffd600;
-        color:#111;
-        border-radius:50%;
-        font-weight:bold;
-    `;
-
-    document.body.appendChild(notificacao);
-
-    requestAnimationFrame(() => {
-
-        notificacao.style.transform =
-            "translateY(0)";
-
-        notificacao.style.opacity = "1";
-
-    });
-
-    setTimeout(() => {
-
-        notificacao.style.transform =
-            "translateY(20px)";
-
-        notificacao.style.opacity = "0";
-
-        setTimeout(() => {
-            notificacao.remove();
-        }, 300);
-
-    }, 2500);
-
-}
-
-
-/* =========================================================
-   FAVORITOS
-========================================================= */
-
-document.querySelectorAll(".favorito")
-    .forEach(botao => {
-
-        botao.setAttribute(
-            "role",
-            "button"
+        let notificacao = document.querySelector(
+            ".notificacao-site"
         );
 
-        botao.setAttribute(
-            "aria-label",
-            "Adicionar aos favoritos"
-        );
 
-        botao.addEventListener(
-            "click",
-            function(event) {
+        if (!notificacao) {
 
-                event.stopPropagation();
+            notificacao = document.createElement("div");
 
-                const favoritado =
-                    this.classList.toggle(
-                        "favoritado"
-                    );
+            notificacao.className = "notificacao-site";
 
-                if (favoritado) {
-
-                    this.textContent = "♥";
-
-                    this.style.color =
-                        "#df3b3b";
-
-                    mostrarNotificacao(
-                        "Produto adicionado aos favoritos!"
-                    );
-
-                } else {
-
-                    this.textContent = "♡";
-
-                    this.style.color = "";
-
-                    mostrarNotificacao(
-                        "Produto removido dos favoritos."
-                    );
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-document.querySelectorAll(".categoria")
-    .forEach(categoria => {
-
-        categoria.addEventListener(
-            "click",
-            function() {
-
-                const nome =
-                    this.querySelector("h3")
-                        ?.textContent
-                        .trim();
-
-                if (!nome) return;
-
-                if (nome.toLowerCase() === "motos") {
-
-                    mostrarNotificacao(
-                        "Confira nossas motos disponíveis."
-                    );
-
-                } else {
-
-                    mostrarNotificacao(
-                        `Categoria: ${nome}`
-                    );
-
-                }
-
-                const produtos =
-                    document.getElementById("produtos");
-
-                if (produtos) {
-
-                    setTimeout(() => {
-
-                        produtos.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start"
-                        });
-
-                    }, 350);
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   NEWSLETTER
-========================================================= */
-
-function cadastrarEmail() {
-
-    const campoEmail =
-        document.getElementById("email");
-
-    if (!campoEmail) return;
-
-    const email =
-        campoEmail.value.trim();
-
-    const emailValido =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!email) {
-
-        mostrarNotificacao(
-            "Digite seu e-mail para continuar."
-        );
-
-        campoEmail.focus();
-
-        return;
-    }
-
-    if (!emailValido.test(email)) {
-
-        mostrarNotificacao(
-            "Digite um e-mail válido."
-        );
-
-        campoEmail.focus();
-
-        return;
-    }
-
-    mostrarNotificacao(
-        "Cadastro realizado com sucesso!"
-    );
-
-    campoEmail.value = "";
-
-}
-
-
-/* Enter no campo da newsletter */
-
-const campoEmail =
-    document.getElementById("email");
-
-if (campoEmail) {
-
-    campoEmail.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-                cadastrarEmail();
-            }
+            document.body.appendChild(notificacao);
 
         }
+
+
+        notificacao.textContent = mensagem;
+
+        notificacao.classList.add("mostrar");
+
+
+        clearTimeout(notificacao.timer);
+
+
+        notificacao.timer = setTimeout(() => {
+
+            notificacao.classList.remove("mostrar");
+
+        }, 2500);
+
+    }
+
+
+    /* =====================================================
+       9. FAVORITOS
+       ===================================================== */
+
+    const botoesFavorito = document.querySelectorAll(
+        ".favorito"
     );
 
-}
+
+    botoesFavorito.forEach((botao) => {
+
+        botao.addEventListener("click", (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
 
 
-/* =========================================================
-   LINKS "VER TODOS"
-========================================================= */
+            botao.classList.toggle("favoritado");
 
-document.querySelectorAll(
-    '.titulo-secao a[href="#"]'
-).forEach(link => {
 
-    link.addEventListener(
-        "click",
-        function(event) {
+            if (botao.classList.contains("favoritado")) {
+
+                botao.innerHTML = "♥";
+
+                mostrarNotificacao(
+                    "Produto adicionado aos favoritos!"
+                );
+
+            } else {
+
+                botao.innerHTML = "♡";
+
+                mostrarNotificacao(
+                    "Produto removido dos favoritos."
+                );
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       10. CATEGORIAS
+       ===================================================== */
+
+    const categorias = document.querySelectorAll(
+        ".categoria"
+    );
+
+
+    categorias.forEach((categoria) => {
+
+        categoria.addEventListener("click", () => {
+
+            const nomeCategoria =
+                categoria.querySelector("h3, h4, span, p");
+
+
+            if (nomeCategoria) {
+
+                mostrarNotificacao(
+                    `Categoria: ${nomeCategoria.textContent.trim()}`
+                );
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       11. NEWSLETTER
+       ===================================================== */
+
+    const newsletter = document.querySelector(
+        ".newsletter form"
+    );
+
+
+    if (newsletter) {
+
+        newsletter.addEventListener("submit", (event) => {
 
             event.preventDefault();
 
-            const secao =
-                this.closest(".secao");
 
-            if (!secao) return;
+            const email = newsletter.querySelector(
+                'input[type="email"]'
+            );
 
-            const produtos =
-                document.querySelector(".produtos");
+
+            if (!email) return;
+
+
+            if (email.value.trim() === "") {
+
+                mostrarNotificacao(
+                    "Digite seu e-mail."
+                );
+
+                return;
+
+            }
+
+
+            mostrarNotificacao(
+                "E-mail cadastrado com sucesso!"
+            );
+
+
+            email.value = "";
+
+        });
+
+    }
+
+
+    /* =====================================================
+       12. BOTÕES "VER TODOS"
+       ===================================================== */
+
+    const botoesVerTodos = document.querySelectorAll(
+        ".ver-todos"
+    );
+
+
+    botoesVerTodos.forEach((botao) => {
+
+        botao.addEventListener("click", () => {
+
+            const produtos = document.querySelector(
+                ".produtos, .ofertas"
+            );
+
 
             if (produtos) {
 
                 produtos.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
+                    behavior: "smooth"
                 });
 
             }
 
+        });
+
+    });
+
+
+    /* =====================================================
+       13. BOTÃO EXPLORAR PRODUTOS
+       ===================================================== */
+
+    const botoesExplorar = document.querySelectorAll(
+        "button"
+    );
+
+
+    botoesExplorar.forEach((botao) => {
+
+        const texto = botao.textContent
+            .trim()
+            .toLowerCase();
+
+
+        if (
+            texto.includes("explorar produtos") ||
+            texto.includes("comprar agora")
+        ) {
+
+            botao.addEventListener("click", () => {
+
+                irParaProdutos();
+
+            });
+
         }
+
+    });
+
+
+    /* =====================================================
+       14. CLIQUE NO CARRINHO
+       ===================================================== */
+
+    const carrinho = document.querySelector(
+        ".carrinho"
     );
 
-});
 
+    if (carrinho) {
 
-/* =========================================================
-   BOTÃO "EXPLORAR PRODUTOS"
-========================================================= */
-
-document.querySelectorAll(
-    ".destaque .btn-principal"
-).forEach(botao => {
-
-    botao.addEventListener(
-        "click",
-        irParaProdutos
-    );
-
-});
-
-
-/* =========================================================
-   CARRINHO — CLIQUE NO ÍCONE
-========================================================= */
-
-const carrinho =
-    document.querySelector(".carrinho");
-
-if (carrinho) {
-
-    carrinho.addEventListener(
-        "click",
-        function() {
+        carrinho.addEventListener("click", () => {
 
             if (quantidadeCarrinho === 0) {
 
@@ -595,137 +652,146 @@ if (carrinho) {
             } else {
 
                 mostrarNotificacao(
-                    `Você possui ${quantidadeCarrinho} item(ns) no carrinho.`
+                    `Você possui ${quantidadeCarrinho} produto(s) no carrinho.`
                 );
 
             }
 
-        }
+        });
+
+    }
+
+
+    /* =====================================================
+       15. MENU DE NAVEGAÇÃO
+       ===================================================== */
+
+    const linksNav = document.querySelectorAll(
+        "nav a"
     );
 
-}
 
+    linksNav.forEach((link) => {
 
-/* =========================================================
-   MENU — FECHAR / DESTACAR AO CLICAR
-========================================================= */
+        link.addEventListener("click", () => {
 
-document.querySelectorAll(
-    ".menu a"
-).forEach(link => {
+            linksNav.forEach((item) => {
 
-    link.addEventListener(
-        "click",
-        function() {
-
-            document
-                .querySelectorAll(".menu a")
-                .forEach(item => {
-                    item.classList.remove("ativo");
-                });
-
-            this.classList.add("ativo");
-
-        }
-    );
-
-});
-
-
-/* =========================================================
-   EFEITO DE ENTRADA AO ROLAR
-========================================================= */
-
-const elementosAnimados =
-    document.querySelectorAll(
-        ".categoria, .produto, .beneficio, .depoimento"
-    );
-
-const observador =
-    new IntersectionObserver(
-        entradas => {
-
-            entradas.forEach(entrada => {
-
-                if (entrada.isIntersecting) {
-
-                    entrada.target.style.opacity = "1";
-
-                    entrada.target.style.transform =
-                        "translateY(0)";
-
-                    observador.unobserve(
-                        entrada.target
-                    );
-
-                }
+                item.classList.remove("ativo");
 
             });
 
-        },
-        {
-            threshold: 0.12
-        }
+
+            link.classList.add("ativo");
+
+        });
+
+    });
+
+
+    /* =====================================================
+       16. ANIMAÇÃO AO ENTRAR NA TELA
+       ===================================================== */
+
+    const elementosAnimados = document.querySelectorAll(
+        ".categoria, .produto, .beneficio, .depoimento, .destaque"
     );
 
 
-elementosAnimados.forEach(elemento => {
+    if ("IntersectionObserver" in window) {
 
-    elemento.style.opacity = "0";
+        const observer = new IntersectionObserver(
+            (entradas) => {
 
-    elemento.style.transform =
-        "translateY(18px)";
+                entradas.forEach((entrada) => {
 
-    elemento.style.transition =
-        "opacity .55s ease, transform .55s ease";
+                    if (entrada.isIntersecting) {
 
-    observador.observe(elemento);
+                        entrada.target.classList.add(
+                            "aparecer"
+                        );
 
-});
+                        observer.unobserve(
+                            entrada.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
 
 
-/* =========================================================
-   ANIMAÇÃO DO HEADER AO ROLAR
-========================================================= */
+        elementosAnimados.forEach((elemento) => {
 
-const cabecalho =
-    document.querySelector(".cabecalho");
+            observer.observe(elemento);
 
-window.addEventListener(
-    "scroll",
-    function() {
+        });
 
-        if (!cabecalho) return;
+    }
 
-        if (window.scrollY > 30) {
 
-            cabecalho.style.boxShadow =
-                "0 5px 25px rgba(0,0,0,.14)";
+    /* =====================================================
+       17. SOMBRA DO HEADER AO ROLAR
+       ===================================================== */
+
+    const header = document.querySelector(
+        ".cabecalho"
+    );
+
+
+    window.addEventListener("scroll", () => {
+
+        if (!header) return;
+
+
+        if (window.scrollY > 20) {
+
+            header.classList.add(
+                "header-scroll"
+            );
 
         } else {
 
-            cabecalho.style.boxShadow =
-                "0 2px 18px rgba(0,0,0,.10)";
+            header.classList.remove(
+                "header-scroll"
+            );
 
         }
 
-    }
-);
+    });
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
+    /* =====================================================
+       18. PREVENIR ERROS EM IMAGENS
+       ===================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+    const todasImagens = document.querySelectorAll(
+        "img"
+    );
 
-        atualizarBanner();
 
-        console.log(
-            "MercadoMoto carregado com sucesso."
-        );
+    todasImagens.forEach((imagem) => {
 
-    }
-);
+        imagem.addEventListener("error", () => {
+
+            imagem.style.opacity = "0.5";
+
+        });
+
+    });
+
+
+    /* =====================================================
+       19. FINALIZAÇÃO
+       ===================================================== */
+
+    console.log(
+        "Mercado Moto iniciado com sucesso!"
+    );
+
+});
